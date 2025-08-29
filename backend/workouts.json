@@ -1,8 +1,44 @@
 [
     {
+        "id": "59080e37-3f63-4753-917a-a24af01fa55d",
         "exercise_id": 1,
-        "weight": 50.0,
+        "weight": 110.23,
         "reps": 10,
         "date": "2025-08-27"
+    },
+    {
+        "id": "83a213b8-ba69-454b-8e0e-7d5b9abb8345",
+        "exercise_id": 3,
+        "weight": 22.05,
+        "reps": 20,
+        "date": "2025-08-28"
+    },
+    {
+        "id": "68c43669-fac5-46a7-a06c-b4953acb45b9",
+        "exercise_id": 1,
+        "weight": 10.0,
+        "reps": 10,
+        "date": "2025-08-28"
+    },
+    {
+        "id": "480563d9-8864-4a64-a081-c33ca086bf99",
+        "exercise_id": 3,
+        "weight": 10.0,
+        "reps": 10,
+        "date": "2025-08-28"
+    },
+    {
+        "id": "480563d9-8864-4a64-a081-c33c3526bf99",
+        "exercise_id": 4,
+        "weight": 10.0,
+        "reps": 11,
+        "date": "2025-08-28"
+    },
+    {
+        "id": "68c43669-fac5-46a7-a06c-b4953acb15b9",
+        "exercise_id": 1,
+        "weight": 10.0,
+        "reps": 10,
+        "date": "2025-07-28"
     }
 ]

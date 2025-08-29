@@ -1,53 +1,62 @@
-
 [
   {
     "id": 1,
     "name": "Dumbbell Bench Press",
-    "description": "A fundamental upper-body exercise, the dumbbell bench press targets the chest, shoulders, and triceps. Using dumbbells allows for a greater range of motion compared to a barbell."
+    "description": "A fundamental upper-body exercise, the dumbbell bench press targets the chest, shoulders, and triceps. Using dumbbells allows for a greater range of motion compared to a barbell.",
+    "imageUrl": "https://picsum.photos/seed/1/50"
   },
   {
     "id": 2,
     "name": "Bent-Over Row",
-    "description": "This exercise strengthens the back muscles, including the lats and rhomboids, as well as the biceps. It is excellent for improving posture and upper body strength."
+    "description": "This exercise strengthens the back muscles, including the lats and rhomboids, as well as the biceps. It is excellent for improving posture and upper body strength.",
+    "imageUrl": "https://picsum.photos/seed/2/50"
   },
   {
     "id": 3,
     "name": "Dumbbell Shoulder Press",
-    "description": "Also known as the overhead press, this exercise is highly effective for developing shoulder strength and size. It also engages the triceps."
+    "description": "Also known as the overhead press, this exercise is highly effective for developing shoulder strength and size. It also engages the triceps.",
+    "imageUrl": "https://picsum.photos/seed/3/50"
   },
   {
     "id": 4,
     "name": "Farmer's Walk",
-    "description": "A simple yet highly effective exercise, the farmer's walk involves walking while holding a heavy dumbbell in each hand. It builds grip strength, core stability, and overall endurance."
+    "description": "A simple yet highly effective exercise, the farmer's walk involves walking while holding a heavy dumbbell in each hand. It builds grip strength, core stability, and overall endurance.",
+    "imageUrl": "https://picsum.photos/seed/4/50"
   },
   {
     "id": 5,
     "name": "Stiff-Legged Deadlift",
-    "description": "This exercise, also called the Romanian deadlift, targets the hamstrings, glutes, and lower back."
+    "description": "This exercise, also called the Romanian deadlift, targets the hamstrings, glutes, and lower back.",
+    "imageUrl": "https://picsum.photos/seed/5/50"
   },
   {
     "id": 6,
     "name": "Dumbbell Swing",
-    "description": "A dynamic, full-body movement that powerfully works the hips, glutes, and hamstrings, while also engaging the shoulders and core."
+    "description": "A dynamic, full-body movement that powerfully works the hips, glutes, and hamstrings, while also engaging the shoulders and core.",
+    "imageUrl": "https://picsum.photos/seed/6/50"
   },
   {
     "id": 7,
     "name": "Hammer Curl",
-    "description": "A variation of the traditional bicep curl, the hammer curl targets both the biceps and the brachialis muscle, helping to build thicker arms."
+    "description": "A variation of the traditional bicep curl, the hammer curl targets both the biceps and the brachialis muscle, helping to build thicker arms.",
+    "imageUrl": "https://picsum.photos/seed/7/50"
   },
   {
     "id": 8,
     "name": "Goblet Squat",
-    "description": "In this squat variation, you hold a single dumbbell vertically against your chest. It's a great way to learn proper squat form while engaging the quads, glutes, and core."
+    "description": "In this squat variation, you hold a single dumbbell vertically against your chest. It's a great way to learn proper squat form while engaging the quads, glutes, and core.",
+    "imageUrl": "https://picsum.photos/seed/8/50"
   },
   {
     "id": 9,
     "name": "Dumbbell Lunges",
-    "description": "A classic lower-body exercise that targets the quadriceps, glutes, and hamstrings. Lunges also improve balance and stability."
+    "description": "A classic lower-body exercise that targets the quadriceps, glutes, and hamstrings. Lunges also improve balance and stability.",
+    "imageUrl": "https://picsum.photos/seed/9/50"
   },
   {
     "id": 10,
     "name": "Bicep Curl",
-    "description": "A classic isolation exercise that targets the biceps. It's a foundational movement for building arm strength and size."
+    "description": "A classic isolation exercise that targets the biceps. It's a foundational movement for building arm strength and size.",
+    "imageUrl": "https://picsum.photos/seed/10/50"
   }
 ]

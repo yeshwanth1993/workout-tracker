@@ -1,0 +1,38 @@
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  text-align: center;
+}
+
+.calendar-day {
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+}
+
+.calendar-day.active {
+  background-color: #fffbe6;
+}
+
+.calendar-day.empty {
+  border: none;
+}
+
+.weekly-grid {
+  display: grid;
+  grid-template-columns: repeat(13, 1fr);
+  gap: 5px;
+  text-align: center;
+}
+
+.week-box {
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+}
+
+.week-box.active {
+  background-color: #fffbe6;
+  font-size: 1.5rem;
+}
