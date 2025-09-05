@@ -1,0 +1,33 @@
+steps:
+# Backend CD
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'us-central1-docker.pkg.dev/haroonc-exp/workout-tracker-repo/backend:$TAG_NAME', './backend']
+  id: 'backend-build'
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'us-central1-docker.pkg.dev/haroonc-exp/workout-tracker-repo/backend:$TAG_NAME']
+  id: 'backend-push'
+
+# Frontend CD
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'us-central1-docker.pkg.dev/haroonc-exp/workout-tracker-repo/frontend:$TAG_NAME', './frontend']
+  id: 'frontend-build'
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'us-central1-docker.pkg.dev/haroonc-exp/workout-tracker-repo/frontend:$TAG_NAME']
+  id: 'frontend-push'
+
+# Create Cloud Deploy Release
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args:
+  - deploy
+  - releases
+  - create
+  - 'release-$TAG_NAME'
+  - '--delivery-pipeline=workout-tracker-pipeline'
+  - '--region=us-central1'
+  - '--source=.'
+  - '--tag=$TAG_NAME'
+
+images:
+- 'us-central1-docker.pkg.dev/haroonc-exp/workout-tracker-repo/backend:$TAG_NAME'
+- 'us-central1-docker.pkg.dev/haroonc-exp/workout-tracker-repo/frontend:$TAG_NAME'

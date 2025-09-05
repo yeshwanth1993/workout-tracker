@@ -1,0 +1,37 @@
+steps:
+# Backend CI
+- name: 'python:3.11'
+  entrypoint: 'pip'
+  args: ['install', '-r', 'backend/requirements.txt', '--user']
+  id: 'backend-install'
+- name: 'python:3.11'
+  entrypoint: 'pylint'
+  args: ['backend/main.py']
+  id: 'backend-lint'
+- name: 'python:3.11'
+  entrypoint: 'python'
+  args: ['-m', 'pytest', 'backend/tests']
+  id: 'backend-test'
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'backend-image', './backend']
+  id: 'backend-build'
+
+# Frontend CI
+- name: 'node:18'
+  entrypoint: 'npm'
+  args: ['install']
+  dir: 'frontend'
+  id: 'frontend-install'
+- name: 'node:18'
+  entrypoint: 'npm'
+  args: ['run', 'lint']
+  dir: 'frontend'
+  id: 'frontend-lint'
+- name: 'node:18'
+  entrypoint: 'npm'
+  args: ['test']
+  dir: 'frontend'
+  id: 'frontend-test'
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'frontend-image', './frontend']
+  id: 'frontend-build'
