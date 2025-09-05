@@ -5,8 +5,8 @@ steps:
   args: ['install', '-r', 'backend/requirements.txt', '--user']
   id: 'backend-install'
 - name: 'python:3.11'
-  entrypoint: 'pylint'
-  args: ['backend/main.py']
+  entrypoint: 'python'
+  args: ['-m', 'pylint', 'backend/main.py']
   id: 'backend-lint'
 - name: 'python:3.11'
   entrypoint: 'python'
