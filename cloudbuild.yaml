@@ -1,9 +1,4 @@
 steps:
-# Install backend dependencies
-- name: 'gcr.io/cloud-builders/pip'
-  args: ['install', '-r', 'backend/requirements.txt']
-  dir: 'backend'
-
 # Run backend linter
 - name: 'python:3.9-slim'
   entrypoint: 'pip'
