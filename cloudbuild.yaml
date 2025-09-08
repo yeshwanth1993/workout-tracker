@@ -1,40 +1,82 @@
 steps:
-# Backend CI
-- name: 'python:3.11'
-  entrypoint: 'pip'
-  args: ['install', '-r', 'backend/requirements.txt', '--user']
-  id: 'backend-install'
-- name: 'python:3.11'
-  entrypoint: 'python'
-  args: ['-m', 'pylint', 'backend/main.py']
-  id: 'backend-lint'
-- name: 'python:3.11'
-  entrypoint: 'python'
-  args: ['-m', 'pytest', 'backend/tests']
-  id: 'backend-test'
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'backend-image', './backend']
-  id: 'backend-build'
+# Install backend dependencies
+- name: 'gcr.io/cloud-builders/pip'
+  args: ['install', '-r', 'backend/requirements.txt']
+  dir: 'backend'
 
-# Frontend CI
-- name: 'node:18'
+# Run backend linter
+- name: 'python:3.9-slim'
+  entrypoint: 'pip'
+  args: ['install', 'flake8']
+- name: 'python:3.9-slim'
+  entrypoint: 'flake8'
+  args: ['.']
+  dir: 'backend'
+
+# Run backend tests
+- name: 'python:3.9-slim'
+  entrypoint: 'pip'
+  args: ['install', '-r', 'requirements-dev.txt']
+  dir: 'backend'
+- name: 'python:3.9-slim'
+  entrypoint: 'pytest'
+  args: ['.']
+  dir: 'backend'
+
+# Install frontend dependencies
+- name: 'node:16'
   entrypoint: 'npm'
   args: ['install']
   dir: 'frontend'
-  id: 'frontend-install'
-- name: 'node:18'
+
+# Run frontend linter
+- name: 'node:16'
   entrypoint: 'npm'
   args: ['run', 'lint']
   dir: 'frontend'
-  id: 'frontend-lint'
-- name: 'node:18'
-  entrypoint: 'npm'
-  args: ['test']
-  dir: 'frontend'
-  id: 'frontend-test'
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'frontend-image', './frontend']
-  id: 'frontend-build'
 
-options:
-  logging: CLOUD_LOGGING_ONLY
+# Run frontend tests
+- name: 'node:16'
+  entrypoint: 'npm'
+  args: ['test', '--', '--watchAll=false']
+  dir: 'frontend'
+
+# Build and push backend image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'us-central1-docker.pkg.dev/haroonc-exp/workout-tracker-backend/backend:$COMMIT_SHA', '.']
+  dir: 'backend'
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'us-central1-docker.pkg.dev/haroonc-exp/workout-tracker-backend/backend:$COMMIT_SHA']
+
+# Build and push frontend image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'us-central1-docker.pkg.dev/haroonc-exp/workout-tracker-frontend/frontend:$COMMIT_SHA', '.']
+  dir: 'frontend'
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'us-central1-docker.pkg.dev/haroonc-exp/workout-tracker-frontend/frontend:$COMMIT_SHA']
+
+# Deploy backend to Cloud Run
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args:
+  - 'run'
+  - 'deploy'
+  - 'workout-tracker-backend'
+  - '--image=us-central1-docker.pkg.dev/haroonc-exp/workout-tracker-backend/backend:$COMMIT_SHA'
+  - '--platform=managed'
+  - '--region=us-central1'
+  - '--allow-unauthenticated'
+  - '--port=8000'
+
+# Deploy frontend to Cloud Run
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args:
+  - 'run'
+  - 'deploy'
+  - 'workout-tracker-frontend'
+  - '--image=us-central1-docker.pkg.dev/haroonc-exp/workout-tracker-frontend/frontend:$COMMIT_SHA'
+  - '--platform=managed'
+  - '--region=us-central1'
+  - '--allow-unauthenticated'
+  - '--port=80'

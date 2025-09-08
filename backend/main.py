@@ -93,17 +93,29 @@ def get_streak(type: str, year: int, month: Optional[int] = None):
     logger.info(f"GET /streak with type={type}, year={year}, month={month}")
     with open("workouts.json", "r") as f:
         workouts = json.load(f)
+    
+    with open("exercises.json", "r") as f:
+        exercises_data = json.load(f)
+    exercises_map = {exercise["id"]: exercise["name"] for exercise in exercises_data}
 
     if type == "daily":
         if month is None:
             return {"error": "Month is required for daily view"}
         
+        from collections import defaultdict
         active_days = set()
+        workouts_by_day = defaultdict(list)
+
         for workout in workouts:
             d = date.fromisoformat(workout["date"])
             if d.year == year and d.month == month:
                 active_days.add(d.day)
-        return {"active_days": sorted(list(active_days))}
+                workouts_by_day[d.day].append({
+                    "exercise_name": exercises_map.get(workout["exercise_id"], "Unknown"),
+                    "weight": workout["weight"],
+                    "reps": workout["reps"]
+                })
+        return {"active_days": sorted(list(active_days)), "workouts_by_day": workouts_by_day}
 
     elif type == "weekly":
         active_weeks = set()
