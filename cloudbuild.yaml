@@ -1,21 +1,18 @@
 steps:
-# Run backend linter
+# Run backend linter in a single step
 - name: 'python:3.9-slim'
-  entrypoint: 'pip'
-  args: ['install', 'flake8']
-- name: 'python:3.9-slim'
-  entrypoint: 'flake8'
-  args: ['.']
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - 'pip install flake8 && flake8 .'
   dir: 'backend'
 
-# Run backend tests
+# Run backend tests in a single step
 - name: 'python:3.9-slim'
-  entrypoint: 'pip'
-  args: ['install', '-r', 'requirements-dev.txt']
-  dir: 'backend'
-- name: 'python:3.9-slim'
-  entrypoint: 'pytest'
-  args: ['.']
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - 'pip install -r requirements-dev.txt && pytest .'
   dir: 'backend'
 
 # Install frontend dependencies
