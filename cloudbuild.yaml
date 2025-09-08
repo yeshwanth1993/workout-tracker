@@ -80,3 +80,6 @@ steps:
   - '--region=us-central1'
   - '--allow-unauthenticated'
   - '--port=80'
+
+options:
+  defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
