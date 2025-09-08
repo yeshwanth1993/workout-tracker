@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import json
-from datetime import date, timedelta
+from datetime import date
 import logging
 from typing import Optional
 
@@ -24,6 +24,7 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
+
 class Workout(BaseModel):
     id: uuid.UUID | None = None
     exercise_id: int
@@ -31,9 +32,11 @@ class Workout(BaseModel):
     reps: int
     date: date
 
+
 def get_week(d: date):
     """Returns the week number for a given date."""
     return d.isocalendar()[1]
+
 
 @app.get("/exercises")
 def get_exercises():
@@ -41,11 +44,13 @@ def get_exercises():
     with open("exercises.json", "r") as f:
         return json.load(f)
 
+
 @app.get("/workouts")
 def get_workouts():
     logger.info("GET /workouts")
     with open("workouts.json", "r") as f:
         return json.load(f)
+
 
 @app.post("/workouts")
 def create_workout(workout: Workout):
@@ -58,6 +63,7 @@ def create_workout(workout: Workout):
         f.seek(0)
         json.dump(workouts, f, indent=4, default=str)
     return new_workout
+
 
 @app.get("/progress")
 def get_progress(exercise_id: int, objective: str):
@@ -93,7 +99,7 @@ def get_streak(type: str, year: int, month: Optional[int] = None):
     logger.info(f"GET /streak with type={type}, year={year}, month={month}")
     with open("workouts.json", "r") as f:
         workouts = json.load(f)
-    
+
     with open("exercises.json", "r") as f:
         exercises_data = json.load(f)
     exercises_map = {exercise["id"]: exercise["name"] for exercise in exercises_data}
@@ -101,7 +107,7 @@ def get_streak(type: str, year: int, month: Optional[int] = None):
     if type == "daily":
         if month is None:
             return {"error": "Month is required for daily view"}
-        
+
         from collections import defaultdict
         active_days = set()
         workouts_by_day = defaultdict(list)

@@ -15,22 +15,12 @@ steps:
   - 'pip install -r requirements-dev.txt && pytest .'
   dir: 'backend'
 
-# Install frontend dependencies
+# Install dependencies, lint, and test in a single, isolated step
 - name: 'node:16'
-  entrypoint: 'npm'
-  args: ['install']
-  dir: 'frontend'
-
-# Run frontend linter
-- name: 'node:16'
-  entrypoint: 'npm'
-  args: ['run', 'lint']
-  dir: 'frontend'
-
-# Run frontend tests
-- name: 'node:16'
-  entrypoint: 'npm'
-  args: ['test', '--', '--watchAll=false']
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - 'npm install && npm run lint && npm test -- --watchAll=false'
   dir: 'frontend'
 
 # Build and push backend image
