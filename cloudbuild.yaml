@@ -1,6 +1,6 @@
 steps:
 # Run backend linter in a single step
-- name: 'python:3.9-slim'
+- name: 'python:3.11-slim'
   entrypoint: 'bash'
   args:
   - '-c'
@@ -8,7 +8,7 @@ steps:
   dir: 'backend'
 
 # Run backend tests in a single step
-- name: 'python:3.9-slim'
+- name: 'python:3.11-slim'
   entrypoint: 'bash'
   args:
   - '-c'
