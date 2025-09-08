@@ -17,19 +17,23 @@ def clear_workouts_json():
     with open("workouts.json", "w") as f:
         json.dump([], f)
 
+
 @pytest.fixture(scope="module")
 def anyio_backend():
     return "asyncio"
+
 
 def test_get_exercises():
     response = client.get("/exercises")
     assert response.status_code == 200
     assert len(response.json()) == 10
 
+
 def test_get_workouts_initially_empty():
     response = client.get("/workouts")
     assert response.status_code == 200
     assert response.json() == []
+
 
 def test_create_workout():
     response = client.post(
@@ -51,3 +55,4 @@ def test_create_workout():
     assert workouts[0]["weight"] == 50
     assert workouts[0]["reps"] == 10
     assert workouts[0]["date"] == "2025-08-27"
+    
