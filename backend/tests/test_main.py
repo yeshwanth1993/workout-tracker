@@ -1,16 +1,16 @@
 import pytest
-from httpx import AsyncClient
 from fastapi.testclient import TestClient
 import sys
 import os
 import json
+from main import app
 
 # Add the parent directory to the path to import the main app
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from main import app
 
 client = TestClient(app)
+
 
 @pytest.fixture(autouse=True)
 def clear_workouts_json():
@@ -55,4 +55,3 @@ def test_create_workout():
     assert workouts[0]["weight"] == 50
     assert workouts[0]["reps"] == 10
     assert workouts[0]["date"] == "2025-08-27"
-    
