@@ -12,7 +12,7 @@ steps:
   entrypoint: 'bash'
   args:
   - '-c'
-  - 'pip install -r requirements-dev.txt && pytest .'
+  - 'pip install -r requirements-dev.txt && PYTHONPATH=. pytest .'
   dir: 'backend'
 
 # Install dependencies, lint, and test in a single, isolated step
